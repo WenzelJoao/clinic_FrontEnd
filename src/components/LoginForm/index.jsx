@@ -1,63 +1,70 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
+
 import { toast } from 'react-toastify'
 
-import { useNavigate } from "react-router"
+import { useNavigate } from 'react-router'
+
 import axios from 'axios'
 
 import { useAuth } from '../../contexts/AuthContext'
+import Modal from '../Modal'
 
 const LoginForm = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
     const navigate = useNavigate()
+
     const { login } = useAuth()
 
-    //validação login
+    // Controle do modal
 
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
+
+
+    //validação de login
     const handleLogin = async (e) => {
         e.preventDefault()
 
         try {
+
             const response = await axios.get('http://localhost:3000/users', {
-                params: { email }
+
+                params: {
+                    email: email.trim(),
+                    password: password.trim()
+                }
             })
 
-            const user = response.data[0]
-
-            if (!user || user.password !== password) {
-                toast.error('Usuário ou senha inválidos')
-                return
-            }
-
-            console.log("response", response);
+            console.log("password", password)
+            console.log(typeof password)
+            // console.log("params", params)
 
             if (response.data.length === 0) {
-                toast.error('Usuário não encontrado. Verifique o email e senha',
-                    {
-                        autoClose: 3000,
-                        hideProgressBar: true
-                    }
-                )
+                toast.error('Usuário não encontrado. Verifique o email e senha', {
+                    autoClose: 3000,
+                    hideProgressBar: true
+                });
                 return;
             }
-            
+
             login(email)
 
-            toast.success('login realizado com sucesso!',
-                {
-                    autoClose: 2000
-                }
-            )
+            toast.success('Login realizado com sucesso!', {
+                autoClose: 2000
+            })
 
-            setTimeout(() => navigate('/dashboard'), 2000)
+            setTimeout(() => navigate('/dashboard', 2000))
 
-        }
-        catch (error) {
+        } catch (error) {
             console.error('Erro ao verificar usuário', error)
+            toast.error('Erro ao conectar com o servidor', {
+                autoClose: 3000
+            })
         }
-
     }
+
 
 
     return (
@@ -65,44 +72,59 @@ const LoginForm = () => {
             <h2 className='text-2xl font-bold text-center mb-6'>Login</h2>
 
             <form onSubmit={handleLogin} className='space-y-4'>
-                <fieldset >
-                    <label htmlFor="email" className='block text-sm font-medium 
-                    mb-1'>Email</label>
+                <fieldset>
+                    <label htmlFor='email' className='block text-sm font-medium mb-1'>Email</label>
                     <input
-                        type="email"
+                        type='email'
                         id='email'
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
-                        className='w-full p-2 border rounded-lg focus:outline-none
-                    focus:ring-blue-500'
+                        className='w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                     />
                 </fieldset>
 
-                <fieldset >
-                    <label htmlFor="password" className='block text-sm font-medium 
-                    mb-1'>Senha</label>
+                <fieldset>
+                    <label htmlFor='password' className='block text-sm font-medium mb-1'>Senha:</label>
                     <input
-                        type="password"
+                        type='password'
                         id='password'
                         minLength={8}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
-                        className='w-full p-2 border rounded-lg focus:outline-none
-                    focus:ring-blue-500'
+                        className='w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                     />
                 </fieldset>
 
                 <button
                     type='submit'
-                    className='w-full bg-cyan-700 text-white p-2 rounded-lg
-                 hover:bg-cyan-800 transition-colors'>
+                    className='w-full bg-cyan-700 text-white p-2 rounded-lg hover:bg-cyan-800 transition-colors'>
                     Entrar
                 </button>
 
             </form>
+
+            <div className='flex justify-between mt-4 text-sm'>
+                <button
+                    onClick={() => toast.info('Funcionalidade em desenvolvimento')}
+                    className='text-blue-600 hover:underline'>
+                    Esqueceu sua senha?
+                </button>
+
+                <button
+                    onClick={() => setIsModalOpen(true)}
+                    className='text-blue-600 hover:underline'>
+                    Criar Conta
+                </button>
+            </div>
+
+            <Modal isOpen={isModalOpen} onClose={()=> setIsModalOpen(false)}>
+                <h1>teste</h1>
+            </Modal>
+
         </div>
+
     )
 }
 
