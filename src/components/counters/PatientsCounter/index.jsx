@@ -22,6 +22,7 @@ const PatientsCounter = () => {
             <h2 className="text-x1 font-bold flex items-center gap-2">
                 <FaHospitalUser className="text-blue-600"/> {patientCounter}
             </h2>
+            <p className="text-gray-600 mt-2">Pacientes</p>
         </div>
     )
 }
