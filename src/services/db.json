@@ -5,5 +5,60 @@
             "email": "joao@email.com",
             "password": "abcd1324"
         }
-    ]
+    ],
+
+  "patients": [
+    {
+      "id": "1",
+      "fullName": "João da Silva",
+      "gender": "Masculino",
+      "birthdate": "11/12/1980",
+      "cpf": "958.858.858-88",
+      "rg": "958.858.858-88",
+      "maritalStatus": "solteiro",
+      "phone": "(48)85544-5955",
+      "email": "joao@email.com",
+      "birthplace": "Florianópolis",
+      "emergencyContact": "(48)85544-5955",
+      "allergies": "A,B",
+      "specialCare": "cuidado A",
+      "healthInsurance": "unimed",
+      "insuranceNumber": "22121",
+      "insuranceValidity": "15/01/2027",
+      "address": {
+        "cep": "88000-000",
+        "city": "Florianópolis",
+        "state": "SC",
+        "street": "Rua X",
+        "number": "30",
+        "complement": "casa",
+        "neighborhood": "centro",
+        "reference": "muro branco"
+      }
+    }
+  ],
+  "consults": [
+    {
+      "patientId": "2",
+      "reason": "Resfriado",
+      "date": "20-03-2026",
+      "time": "15:30",
+      "description": "Lorem Ipsum",
+      "medication": "Lorem Ipsum",
+      "dosagePrecautions": "Lorem Ipsum",
+      "id": "1"
+    }
+  ],
+  "exams": [
+    {
+      "name": "Lorem",
+      "date": "12-07-2025",
+      "time": "15:20",
+      "type": "Lorem",
+      "laboratory": "Lorem",
+      "documentUrl": "https://docexemplo.com",
+      "results": "Lorem",
+      "id": "1"
+    }
+  ]
 }
