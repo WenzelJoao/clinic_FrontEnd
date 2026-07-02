@@ -1,125 +1,152 @@
-import React, { useState } from 'react'
+import { Link, useNavigate, NavLink } from 'react-router'
 import {
     MdDashboard,
     MdExitToApp,
     MdMenu,
     MdClose
 } from 'react-icons/md'
+
 import {
     FaUserPlus,
     FaListAlt,
     FaCalendarCheck
 } from 'react-icons/fa'
-import { Link, useNavigate } from 'react-router'
-import { useAuth } from '../../contexts/AuthContext'
 
-const SidemMenu = () => {
+import { useAuth } from '../../contexts/AuthContext'
+import { useState } from 'react'
+
+
+
+const SideMenu = () => {
     const navigate = useNavigate()
 
-    const {logout} = useAuth()
+    const { logout } = useAuth()
 
-    // Controle do menu sanfonado
+    // controle do menu sanfonado
     const [isCollapsed, setIsCollapsed] = useState(false)
 
-    // Função logout 
+    // função do logout
     const handleLogout = () => {
         logout()
         navigate('/')
-
     }
 
-    // Função toggle menu 
+    //função toggle menu
 
     const toggleMenu = () => {
         setIsCollapsed(!isCollapsed)
     }
 
-    return (
-        <aside 
-        className={`h-screen bg-cyan-800 text-white flex flex-col justify-between
-        transition-all duration-300 ${
-            isCollapsed ? 'w-20' : 'w-64'
-        }`}
-        >
-            {/* topo - bot~so toggle */}
 
+
+    return (
+        <aside
+            className={`min-h-screen self-stretch bg-cyan-800 text-white flex flex-col justify-between transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-64'
+                }`}
+        >
+            {/* topo - botão toggle */}
             <div className='p-4 flex items-center justify-between border-b border-cyan-700'>
                 {
                     !isCollapsed && (
                         <h1 className='text-lg font-bold'>Clínica +</h1>
                     )
                 }
-
                 <button
-                onClick={toggleMenu}
-                className='text-white hover:text-cyan-300 focus:outline-none'
-                >   
-                {isCollapsed ? <MdMenu size={24}/> : <MdClose size={24} />}
+                    onClick={toggleMenu}
+                    className='text-white hover:text-cyan-300 focus:outline-none'
+                >
+                    {isCollapsed ? <MdMenu size={24} /> : <MdClose size={24} />}
                 </button>
             </div>
 
             {/* Menu */}
-
             <nav className='flex-1 p-4 space-y-4 overflow-y-auto'>
                 <ul className='space-y-3'>
                     <li>
-                        <Link
-                        to='/dashboard'
-                        className='flex items-center gap-3 hover:text-cyan-300'
+                        <NavLink
+                            to="/dashboard"
+                            className={({ isActive }) =>
+                                `flex gap-2 hover:text-cyan-300 ${isActive ? "text-cyan-300" : "text-white"
+                                }`
+                            }
                         >
-                            <MdDashboard size={20}/>
+                            <MdDashboard size={20} />
                             {!isCollapsed && <span>Início</span>}
-                        </Link>
-                    </li>
+                        </NavLink>
 
-                    <li>
-                        <Link
-                        to='/pacientes'
-                        className='flex items-center gap-3 hover:text-cyan-300'
-                        >
-                            <FaUserPlus size={20}/>
-                            {!isCollapsed && <span>Pacientes</span>}
-                        </Link>
+
                     </li>
                     <li>
-                        <Link
-                        to='/consultas'
-                        className='flex items-center gap-3 hover:text-cyan-300'
+                        <NavLink
+                            to="/prontuarios"
+                            className={({ isActive }) =>
+                                `flex gap-2 hover:text-cyan-300 ${isActive ? "text-cyan-300" : "text-white"
+                                }`
+                            }
                         >
-                            <FaCalendarCheck size={20}/>
+                            <FaCalendarCheck size={20} />
+                            {!isCollapsed && <span>Prontuários</span>}
+                        </NavLink>
+
+
+                    </li>
+                    <li>
+                        <NavLink
+                            to="/pacientes"
+                            className={({ isActive }) =>
+                                `flex gap-2 hover:text-cyan-300 ${isActive ? "text-cyan-300" : "text-white"
+                                }`
+                            }
+                        >
+                            <FaUserPlus size={20} />
+                            {!isCollapsed && <span>Registrar Paciente</span>}
+                        </NavLink>
+
+                    </li>
+                    <li>
+                        <NavLink
+                            to="/consultas"
+                            className={({ isActive }) =>
+                                `flex gap-2 hover:text-cyan-300 ${isActive ? "text-cyan-300" : "text-white"
+                                }`
+                            }
+                        >
+                            <MdMenu size={20} />
                             {!isCollapsed && <span>Consultas</span>}
-                        </Link>
+                        </NavLink>
+
+
                     </li>
                     <li>
-                        <Link
-                        to='/exames'
-                        className='flex items-center gap-3 hover:text-cyan-300'
+                        <NavLink
+                            to="/exames"
+                            className={({ isActive }) =>
+                                `flex gap-2 hover:text-cyan-300 ${isActive ? "text-cyan-300" : "text-white"
+                                }`
+                            }
                         >
-                            <FaListAlt size={20}/>
+                            <FaListAlt size={20} />
                             {!isCollapsed && <span>Exames</span>}
-                        </Link>
+                        </NavLink>
+
                     </li>
                 </ul>
             </nav>
 
-            {/* Botão sair */}
-
+            {/* botao sair */}
             <div className='p-4 border-t border-cyan-700'>
                 <button
-                onClick={handleLogout} 
-                className='flex items-center gap-3 text-red-500 w-full cursor-pointer'
+                    onClick={handleLogout}
+                    className='flex items-center gap-3 text-red-300 hover:text-red-500 w-full cursor-pointer'
                 >
-                   <MdExitToApp size={20} />
-                   (!isCollapsed && <span>Sair</span>) 
+                    <MdExitToApp size={20} />
+                    {!isCollapsed && <span>Sair</span>}
+
                 </button>
             </div>
-        </aside>
+
+        </aside >
     )
-
-
-  return (
-    <div>SidemMenu</div>
-  )
 }
 
-export default SidemMenu
+export default SideMenu
