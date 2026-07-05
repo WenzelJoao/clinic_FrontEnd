@@ -124,7 +124,7 @@ function ConsultationForm() {
 
 
     return (
-        <section className='p-6 text-gray-800'>
+        <section className='p-6 text-gray-800 dark:text-gray-100'>
             {/* campo de busca */}
 
             <div className='mb-6'>
@@ -148,7 +148,7 @@ function ConsultationForm() {
                     filteredPatients.map((patient) => (
                         <li
                             key={patient.id}
-                            className='p-4 border rounded-lg shadow-sm flex justify-between items-center hover:bg-gray-50 transition'
+                            className='p-4 border rounded-lg shadow-sm flex justify-between items-center hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800 transition'
                         >
                             <div>
                                 <p className='text-sm'>
@@ -189,7 +189,7 @@ function ConsultationForm() {
                             </h2>
 
                             {/* Dados básicos */}
-                            <div className='mb-4 text-sm text-gray-700'>
+                            <div className='mb-4 text-sm text-gray-700 dark:text-gray-200'>
                                 <p>
                                     <strong>Email:</strong> {selectedPatient.email}
                                 </p>

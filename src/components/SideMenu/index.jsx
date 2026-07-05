@@ -41,7 +41,7 @@ const SideMenu = () => {
 
     return (
         <aside
-            className={`min-h-screen self-stretch bg-cyan-800 text-white flex flex-col justify-between transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-64'
+            className={`sticky top-0 h-screen flex-shrink-0 bg-cyan-800 text-white flex flex-col justify-between transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-64'
                 }`}
         >
             {/* topo - botão toggle */}

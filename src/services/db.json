@@ -168,18 +168,17 @@
     },
     {
       "patientId": "1",
-      "reason": "aaaaaaaaaaaaaaa",
-      "date": "2026-07-01",
-      "time": "21:07",
-      "description": "aaaaaaaaaaaaaaa",
-      "medication": "aaaaaaaaaaaaaaaaaaaaaaa",
-      "dosagePrecautions": "aaaaaaaaaaaaaaaaaaaaaaaa",
-      "id": "1iW9sXaqeF8"
+      "reason": "aaaaaaaaaaaaaaaaaaaaaaa",
+      "date": "2026-07-22",
+      "time": "19:39",
+      "description": "saaaaaaaaaaaaaa",
+      "medication": "aaaaaaaaaaaa",
+      "dosagePrecautions": "aaaaaaaaaaaa",
+      "id": "B1zdxFuu4zg"
     }
   ],
   "exams": [
     {
-      "patientId": "1",
       "name": "Lorem",
       "date": "12-07-2025",
       "time": "15:20",
@@ -188,6 +187,17 @@
       "documentUrl": "https://docexemplo.com",
       "results": "Lorem",
       "id": "1"
+    },
+    {
+      "name": "apjfinfon oasnanf",
+      "date": "2026-07-30",
+      "time": "19:16",
+      "type": "acascas",
+      "laboratory": "cascascasca",
+      "documentUrl": "cascascascascacs",
+      "results": "ascascascaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "patientId": "1",
+      "id": "vtmtfyt7hJE"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

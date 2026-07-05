@@ -1,31 +1,33 @@
-import { createContext,useContext,useState } from "react";
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useContext, useState } from 'react'
 
 const AuthContext = createContext()
 
-export const AuthProvider = ({children}) =>{
-    const [user,setUser] = useState(() => {
+export const AuthProvider = ({ children }) => {
+    const [user, setUser] = useState(() => {
         const savedEmail = localStorage.getItem("email")
-        return savedEmail ? {email: savedEmail} : null
+
+        return savedEmail ? { email: savedEmail } : null
     })
 
-    const login = (email) =>{
+    const login = (email) => {
         localStorage.setItem("email", email)
-        setUser({email})
+        setUser({ email })
     }
 
-    const logout = () =>{
+    const logout = () => {
         localStorage.removeItem("email")
         setUser(null)
     }
 
-    return(
-        <AuthContext.Provider value={{user,login,logout}}>
+    return (
+        <AuthContext.Provider value={{ user, login, logout }}>
             {children}
         </AuthContext.Provider>
     )
+
 }
 
-//hook customizando para consumir o contexto
+//hook customizado para consumir o contexto
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => useContext(AuthContext)

@@ -199,7 +199,7 @@ function RegisterFormPatient() {
     return (
         <form
             onSubmit={handleSubmit}
-            className='space-y-6 text-gray-800'
+            className='space-y-6 text-gray-800 dark:text-gray-100'
             autoComplete='off'
         >
 

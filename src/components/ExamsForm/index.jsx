@@ -21,28 +21,20 @@ const ExamsForm = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const fetchPatients = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/patients");
+      setPatients(response.data);
+      setFilteredPatients(response.data);
+    } catch (error) {
+      console.error("Erro ao obter dados dos pacientes:", error);
+    }
+  };
+
   // Buscar pacientes ao carregar o componente
   useEffect(() => {
-    let isMounted = true;
-
-    const fetchPatients = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/patients");
-
-        if (isMounted) {
-          setPatients(response.data);
-          setFilteredPatients(response.data);
-        }
-      } catch (error) {
-        console.error("Erro ao obter dados dos pacientes:", error);
-      }
-    };
-
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchPatients();
-
-    return () => {
-      isMounted = false;
-    };
   }, []);
 
   const handleSearchChange = (event) => {
@@ -118,7 +110,7 @@ const ExamsForm = () => {
   };
 
   return (
-    <section className="p-6 text-gray-800">
+    <section className="p-6 text-gray-800 dark:text-gray-100">
       {/* Campo de busca */}
       <div className="mb-6">
         <label className="block text-sm font-semibold mb-2">
@@ -137,7 +129,7 @@ const ExamsForm = () => {
         {filteredPatients.map((patient) => (
           <li
             key={patient.id}
-            className="p-4 border rounded-lg shadow-sm flex justify-between items-center hover:bg-gray-50 transition"
+            className="p-4 border rounded-lg shadow-sm flex justify-between items-center hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800 transition"
           >
             <div>
               <p className="text-sm">
@@ -168,7 +160,7 @@ const ExamsForm = () => {
               Cadastrar Exame para {selectedPatient.fullName}
             </h2>
 
-            <div className="mb-4 text-sm text-gray-700">
+            <div className="mb-4 text-sm text-gray-700 dark:text-gray-200">
               <p>
                 <strong>Email:</strong> {selectedPatient.email}
               </p>

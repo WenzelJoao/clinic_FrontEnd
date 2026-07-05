@@ -2,15 +2,11 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import { FaUserAlt } from 'react-icons/fa'
 import { Link } from "react-router"
-import PaginationControls from "../PaginationControls"
-
-const ITEMS_PER_PAGE = 3
 
 const PatientsList = () => {
     const [patients, setPatients] = useState([])
     const [searchTerm, setSearchTerm] = useState("")
     const [ages, setAges] = useState({})
-    const [currentPage, setCurrentPage] = useState(1)
 
     const calculateAge = (birthdate) => {
         if (!birthdate) return "-"
@@ -50,7 +46,6 @@ const PatientsList = () => {
 
     const handleSearchChange = (event) => {
         setSearchTerm(event.target.value)
-        setCurrentPage(1)
     }
 
     const filteredPatients = patients.filter((patient) =>
@@ -59,22 +54,17 @@ const PatientsList = () => {
             .toLowerCase()
             .includes(searchTerm.toLowerCase())
     )
-    const totalPages = Math.ceil(filteredPatients.length / ITEMS_PER_PAGE)
-    const paginatedPatients = filteredPatients.slice(
-        (currentPage - 1) * ITEMS_PER_PAGE,
-        currentPage * ITEMS_PER_PAGE
-    )
 
 
     return (
-        <div className="bg-white shadow rounded-2xl p-6 mt-8">
-            <h2 className="text-xl font-semibold text-cyan-800 mb-4">
+        <div className="bg-white dark:bg-gray-900 shadow rounded-2xl p-6 mt-8">
+            <h2 className="text-xl font-semibold text-cyan-800 dark:text-cyan-300 mb-4">
                 Informações Rápidas de Pacientes
             </h2>
 
             {/* Campo de busca */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
-                <label htmlFor="search" className="text-gray-700 font-medium">
+                <label htmlFor="search" className="text-gray-700 dark:text-gray-200 font-medium">
                     Buscar Paciente:
                 </label>
                 <input
@@ -83,7 +73,7 @@ const PatientsList = () => {
                     value={searchTerm}
                     onChange={handleSearchChange}
                     placeholder="Digite o nome, email ou telefone"
-                    className="border rounded-lg px-3 py-2 w-full sm:w-80 focus:ring-2 focus:ring-cyan-600 outline-none"
+                    className="border rounded-lg px-3 py-2 w-full sm:w-80 focus:ring-2 focus:ring-cyan-600 outline-none dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100"
 
                 />
             </div>
@@ -92,9 +82,9 @@ const PatientsList = () => {
 
             {
                 filteredPatients.length > 0 ? (
-                    <ul className="divide-y divide-gray-200">
+                    <ul className="divide-y divide-gray-200 dark:divide-gray-700">
                         {
-                            paginatedPatients.map((patient) => (
+                            filteredPatients.map((patient) => (
                                 <li
                                     key={patient.id}
                                     className="flex flex-col sm:flex-row sm:items-center justify-between py-4"
@@ -104,13 +94,13 @@ const PatientsList = () => {
                                             <FaUserAlt size={20} />
                                         </div>
                                         <div>
-                                            <p className="font-semibold text-gray-800">{patient.fullName}</p>
-                                            <p className="text-sm text-gray-600">{patient.email}</p>
-                                            <p className="text-sm text-gray-600">{patient.phone}</p>
+                                            <p className="font-semibold text-gray-800 dark:text-gray-100">{patient.fullName}</p>
+                                            <p className="text-sm text-gray-600 dark:text-gray-300">{patient.email}</p>
+                                            <p className="text-sm text-gray-600 dark:text-gray-300">{patient.phone}</p>
                                         </div>
                                     </div>
 
-                                    <div className="text-sm text-gray-600 mt-2 sm:mt-0 text-right">
+                                    <div className="text-sm text-gray-600 dark:text-gray-300 mt-2 sm:mt-0 text-right">
                                         <p><strong>Idade:</strong>{ages[patient.id] || "-"} anos</p>
                                         <p><strong>Plano:</strong>{patient.healthInsurance || "-"}</p>
                                         <Link
@@ -127,17 +117,11 @@ const PatientsList = () => {
                         }
                     </ul>
                 ) : (
-                    <p className="text-gray-500 text-center py-6">
+                    <p className="text-gray-500 dark:text-gray-300 text-center py-6">
                         Nenhum paciente encontrado
                     </p>
                 )
             }
-
-            <PaginationControls
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={setCurrentPage}
-            />
 
         </div>
     )

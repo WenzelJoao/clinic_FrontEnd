@@ -13,12 +13,13 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import { AuthProvider } from './contexts/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
-import DashboardLayout from './Layouts/DashboardLayout';
+import DashboardLayout from './layouts/DashboardLayout';
 import MedicalRecordList from './components/MedicalRecordList';
 import RegisterFormPatient from './components/RegisterFormPatient';
 import ConsultationForm from './components/ConsultationForm';
 import ExamsForm from './components/ExamsForm';
 import PatientDetails from './components/PatientDetails';
+import { ThemeProvider } from './contexts/ThemeContext';
 
 
 const router = createBrowserRouter([
@@ -47,8 +48,10 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthProvider>
-      <ToastContainer />
-      <RouterProvider router={router} />
+      <ThemeProvider>
+        <ToastContainer />
+        <RouterProvider router={router} />
+      </ThemeProvider>
     </AuthProvider>
   </StrictMode>,
 )
